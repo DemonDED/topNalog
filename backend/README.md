@@ -83,3 +83,55 @@
 ---
 
 <br>
+
+## `/createTaxReporting`
+
+**Method** : `POST`
+
+**Content**
+
+```json
+{
+  "userName": "Ded",
+  "type": "idn",
+  "date": "new Date()"
+}
+```
+
+**Response** : 
+
+```json
+{
+  "result": "Succefully create tax reporting"
+}
+```
+
+**Code** : `200 OK`
+
+<br>
+
+---
+
+<br>
+
+## `/getTaxReporting/{userName}`
+
+**Method** : `GET`
+
+**Response** : 
+
+```json
+{
+  "userName": "Ded",
+  "type": "idn",
+  "date": "12345"
+}
+```
+
+**Code** : `200 OK`
+
+<br>
+
+---
+
+<br>
