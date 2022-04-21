@@ -15,23 +15,18 @@ app.use(function (_req, res, next) {
     next();
 });
 app.use(cors());
-// if(queryObject.pathname == '/login') {}
+
+app.post('/createUser', async (req, res) => {
+    await postgres.createUser(req.body, res);
+});
+
+app.post('/login', async (req, res) => {
+    await postgres.login(req.body, res);
+})
 
 app.get('/getUserInformation', async (req, res) => {
     const userName = req.query.userName;
-    const result = await postgres.getUserInformation(userName);
-
-    res.status(200).send(result);
-});
-
-app.post('/createUser', async (req, res) => {
-    console.log(req.body);
-    if (req.body.userName === undefined) {
-        res.status(200).send('Empty body');
-    } else {
-        const result = await postgres.createUser(req.body);
-        res.status(200).send(result);
-    }
+    await postgres.getUserInformation(userName, res);
 });
 
 // if(queryObject.pathname === '/createTaxReporting') {}
