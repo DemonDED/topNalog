@@ -14,7 +14,13 @@ const server = http.createServer(async(req, res)=> {
 
     const queryObject = url.parse(req.url, true);
     
-    // if(url == '/createUser') {}
+    if(queryObject.pathname === '/createUser') {
+        const result = await postgres.createUser(queryObject.query);
+
+        res.writeHead(200, headers);
+        res.end(JSON.stringify(result));
+    }
+
     // if(url == '/login') {}
 
     if(queryObject.pathname === '/getUserInformation') {
