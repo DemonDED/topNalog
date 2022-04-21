@@ -23,7 +23,7 @@ async function createUser(data, response) {
             if (result.rowCount === 1) {
                 response.status(200).send(JSON.stringify({"result": "User created"}));
             } else {
-                response.status(200).send(JSON.stringify({"result": "Не создался пользователь. Почему? Я хуй знает"}));
+                response.status(400).send(JSON.stringify({"result": "Не создался пользователь. Почему? Я хуй знает"}));
             }
             
         }
