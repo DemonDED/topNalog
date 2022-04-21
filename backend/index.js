@@ -1,40 +1,41 @@
-const http = require('http');
-const url = require('url');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const postgres = require('./pg');
 
-const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-    'Access-Control-Max-Age': 2592000,
-    'Content-Type': 'application/json'
-};
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function (_req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'OPTIONS, POST, GET')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.header('Content-Type', 'application/json')
+    next();
+});
+app.use(cors());
+// if(queryObject.pathname == '/login') {}
 
-const server = http.createServer(async(req, res)=> {
+app.get('/getUserInformation', async (req, res) => {
+    const userName = req.query.userName;
+    const result = await postgres.getUserInformation(userName);
 
-    const queryObject = url.parse(req.url, true);
-    
-    if(queryObject.pathname === '/createUser') {
-        const result = await postgres.createUser(queryObject.query);
-
-        res.writeHead(200, headers);
-        res.end(JSON.stringify(result));
-    }
-
-    // if(url == '/login') {}
-
-    if(queryObject.pathname === '/getUserInformation') {
-        const userName = queryObject.query.userName;
-        const userInformation = await postgres.getUserInformation(userName);
-
-        res.writeHead(200, headers);
-        res.end(JSON.stringify(userInformation));
-    }
-
-    if(queryObject.pathname === '/createTaxReporting') {}
-
-    if(queryObject.pathname === '/getTaxReporting') {}
-
+    res.status(200).send(result);
 });
 
-server.listen(80, () => console.log(`Server listening on port: 80`));
+app.post('/createUser', async (req, res) => {
+    console.log(req.body);
+    if (req.body.userName === undefined) {
+        res.status(200).send('Empty body');
+    } else {
+        const result = await postgres.createUser(req.body);
+        res.status(200).send(result);
+    }
+});
+
+// if(queryObject.pathname === '/createTaxReporting') {}
+
+// if(queryObject.pathname === '/getTaxReporting') {}
+
+app.listen(80, () => console.log(`Server listening on port: 80`));
