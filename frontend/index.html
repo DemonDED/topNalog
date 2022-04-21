@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     <div id="main">
         <h1>Добро пожаловать, заполните анкету налогоплательщика</h1>
         <div id="formData">
-            <div><label for="">ФИО</label><input type="text"></div>
-            <div><label for="">Адрес</label><input type="text"></div>
-            <div><label for="">Почта</label><input type="text"></div>
-            <div><label for="">ИНН</label><input type="text"></div>
+            <div><label for="">ФИО</label><input id="userName" class="createUForm" type="text"></div>
+            <div><label for="">Адрес</label><input id="addres" class="createUForm" type="text"></div>
+            <div><label for="">Почта</label><input id="email" class="createUForm" type="text"></div>
+            <div><label for="">ИНН</label><input id="tin" class="createUForm" type="text"></div>
+            <div><label for="">Пароль</label><input id="password" class="createUForm" type="text"></div>
+            <div><label for="">Номер телефона</label><input id="contact" class="createUForm" type="text"></div>
         </div>
         <div>
-            <button id="sendData">Отправить</button>
-            <button id="clearData">Очистить</button>
+            <button id="sendData">Создать пользователя</button>
+            <br>
+            <label for="">Или если у вас уже есть аккаунт...</label>
+            <br>
+            <button id="login">Войти</button>
         </div>
     </div>
 </body>
