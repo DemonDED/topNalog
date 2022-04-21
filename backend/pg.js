@@ -52,9 +52,14 @@ async function login(data, response) {
 async function getUserInformation(userName, response) {
     const select = 'SELECT * FROM users WHERE name=$1';
     try {
-        const result = await client.query(select, [userName]).rows[0];
-        response.status(200).send(JSON.stringify(result));
-    } catch(err) {
+        const result =  await (await client.query(select, [userName])).rows[0];
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Пользователь с таким именем не найден"}));
+        } else {
+            response.status(200).send(JSON.stringify(result));
+        }
+    } catch(error) {
+        console.log(error);
         response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
     }
 }
