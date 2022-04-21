@@ -9,6 +9,7 @@
   "userName": "Ded",
   "password": "123321",
   "email": "ded@mail.ru",
+  "accessLevel": 1,
   "address": "sportivnaya 5",
   "contact": "8-555-66-33",
   "tin": 55332211
