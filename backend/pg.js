@@ -36,7 +36,10 @@ async function login(data, response) {
     const select = `SELECT password FROM users WHERE name=$1;`;
     try {
         const result = await (await client.query(select, [data.userName])).rows[0];
-        if(result.password === data.password) {
+
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Пользователь с таким именем не найден"}));
+        } else if (result.password === data.password) {
             response.status(200).send(JSON.stringify({"result": "Авторизация успешна"}));
         } else {
             response.status(400).send(JSON.stringify({"result": "Неверный пароль"}));
