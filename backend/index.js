@@ -1,4 +1,5 @@
 const http = require('http');
+const url = require('url');
 
 const postgres = require('./pg');
 
@@ -10,25 +11,24 @@ const headers = {
 };
 
 const server = http.createServer(async(req, res)=> {
-    console.log(`req: ${req.url}`);
-    const url = req.url;
+
+    const queryObject = url.parse(req.url, true);
     
-    if(url == '/createUser') {}
+    // if(url == '/createUser') {}
+    // if(url == '/login') {}
 
-    if(url == '/login') {}
-
-    if(url.match(/getUserInformation\/(.*)/) !== null) {
-        const userName = url.match(/\b(?!getUserInformation\b)\w+/)[0];
+    if(queryObject.pathname === '/getUserInformation') {
+        const userName = queryObject.query.userName;
         const userInformation = await postgres.getUserInformation(userName);
-        
 
         res.writeHead(200, headers);
         res.end(JSON.stringify(userInformation));
     }
 
-    if(url == '/createTaxReporting') {}
+    if(queryObject.pathname === '/createTaxReporting') {}
 
-    if(req.url?.match(/getTaxReporting\/(.*)/) !== null) {}
+    if(queryObject.pathname === '/getTaxReporting') {}
+
 });
 
 server.listen(80, () => console.log(`Server listening on port: 80`));
