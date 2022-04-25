@@ -114,9 +114,27 @@ async function createPayment(data, response) {
     }
 }
 
+async function getUserPayments(userName, response) {
+    const select = `SELECT name, sum, date FROM payments WHERE name=$1;`;
+
+    try {
+        const result = (await client.query(select, [userName])).rows;
+
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Платежи данного пользователя не найдены"}));
+        } else {
+            response.status(200).send(JSON.stringify(result));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
 exports.getUserInformation = getUserInformation;
 exports.createUser = createUser;
 exports.login = login;
 exports.createTaxReporting = createTaxReporting;
 exports.getTaxReporting = getTaxReporting;
 exports.createPayment = createPayment;
+exports.getUserPayments = getUserPayments;
