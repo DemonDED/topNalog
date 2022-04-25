@@ -33,6 +33,8 @@ app.post('/createTaxReporting', async (req, res) => {
     await postgres.createTaxReporting(req.body, res);
 });
 
-// if(queryObject.pathname === '/getTaxReporting') {}
+app.get('/getTaxReporting', async (req, res) => {
+    await postgres.getTaxReporting(req.query.userName, res);
+})
 
 app.listen(80, () => console.log(`Server listening on port: 80`));

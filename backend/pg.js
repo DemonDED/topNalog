@@ -81,8 +81,25 @@ async function createTaxReporting(data, response) {
     }
 }
 
+async function getTaxReporting(userName, response) {
+    const select = `SELECT name, type, text, date FROM tax_reporting WHERE name=$1;`;
+    try {
+        const result = (await client.query(select, [userName])).rows;
+
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Декларации у данного пользователя не найдены"}));
+        } else {
+            response.status(200).send(JSON.stringify(result));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
 
 exports.getUserInformation = getUserInformation;
 exports.createUser = createUser;
 exports.login = login;
 exports.createTaxReporting = createTaxReporting;
+exports.getTaxReporting = getTaxReporting;
