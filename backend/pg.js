@@ -64,7 +64,25 @@ async function getUserInformation(userName, response) {
     }
 }
 
+async function createTaxReporting(data, response) {
+    const insert = `INSERT INTO tax_reporting(name, type, text, date)
+                    VALUES ($1, $2, $3, $4);`;
+    try {
+        const result = await (await client.query(insert, [data.userName, data.type, data.text, data.date]));
+
+        if (result.rowCount === 1) {
+            response.status(200).send(JSON.stringify({"result": "Декларация создана"}));
+        } else {
+            response.status(400).send(JSON.stringify({"result": "Декларация не создана. Почему? Я хуй знает"}));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
 
 exports.getUserInformation = getUserInformation;
 exports.createUser = createUser;
 exports.login = login;
+exports.createTaxReporting = createTaxReporting;

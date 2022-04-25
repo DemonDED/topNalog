@@ -29,7 +29,9 @@ app.get('/getUserInformation', async (req, res) => {
     await postgres.getUserInformation(userName, res);
 });
 
-// if(queryObject.pathname === '/createTaxReporting') {}
+app.post('/createTaxReporting', async (req, res) => {
+    await postgres.createTaxReporting(req.body, res);
+});
 
 // if(queryObject.pathname === '/getTaxReporting') {}
 
