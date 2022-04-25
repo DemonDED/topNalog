@@ -61,7 +61,7 @@
 
 <br>
 
-## `/getUserInformation?username={userName}`
+## `/getUserInformation?userName={userName}`
 
 **Method** : `GET`
 
@@ -116,7 +116,7 @@
 
 <br>
 
-## `/getTaxReporting?username={userName}`
+## `/getTaxReporting?userName={userName}`
 
 **Method** : `GET`
 
