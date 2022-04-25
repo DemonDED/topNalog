@@ -37,4 +37,8 @@ app.get('/getTaxReporting', async (req, res) => {
     await postgres.getTaxReporting(req.query.userName, res);
 })
 
+app.post('/createPayment', async (req, res) => {
+    await postgres.createPayment(req.body, res);
+})
+
 app.listen(80, () => console.log(`Server listening on port: 80`));
