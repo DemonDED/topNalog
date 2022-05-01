@@ -64,7 +64,77 @@ async function getUserInformation(userName, response) {
     }
 }
 
+async function createTaxReporting(data, response) {
+    const insert = `INSERT INTO tax_reporting(name, type, text, date)
+                    VALUES ($1, $2, $3, $4);`;
+    try {
+        const result = await (await client.query(insert, [data.userName, data.type, data.text, data.date]));
+
+        if (result.rowCount === 1) {
+            response.status(200).send(JSON.stringify({"result": "Декларация создана"}));
+        } else {
+            response.status(400).send(JSON.stringify({"result": "Декларация не создана. Почему? Я хуй знает"}));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
+async function getTaxReporting(userName, response) {
+    const select = `SELECT name, type, text, date FROM tax_reporting WHERE name=$1;`;
+    try {
+        const result = (await client.query(select, [userName])).rows;
+
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Декларации у данного пользователя не найдены"}));
+        } else {
+            response.status(200).send(JSON.stringify(result));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
+async function createPayment(data, response) {
+    const insert = `INSERT INTO payments (name, sum, date) VALUES ($1, $2, $3);`;
+
+    try {
+        const result = await (await client.query(insert, [data.userName, data.sum, data.date]));
+
+        if (result.rowCount === 1) {
+            response.status(200).send(JSON.stringify({"result": "Платеж создан"}));
+        } else {
+            response.status(400).send(JSON.stringify({"result": "Платеж не создан. Почему? Я хуй знает"}));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
+
+async function getUserPayments(userName, response) {
+    const select = `SELECT name, sum, date FROM payments WHERE name=$1;`;
+
+    try {
+        const result = (await client.query(select, [userName])).rows;
+
+        if(result === undefined) {
+            response.status(400).send(JSON.stringify({"result": "Платежи данного пользователя не найдены"}));
+        } else {
+            response.status(200).send(JSON.stringify(result));
+        }
+    } catch(error) {
+        console.log(error);
+        response.status(500).send(JSON.stringify({"result": "На сервере какая-то ошибка, я хуй знает"}));
+    }
+}
 
 exports.getUserInformation = getUserInformation;
 exports.createUser = createUser;
 exports.login = login;
+exports.createTaxReporting = createTaxReporting;
+exports.getTaxReporting = getTaxReporting;
+exports.createPayment = createPayment;
+exports.getUserPayments = getUserPayments;

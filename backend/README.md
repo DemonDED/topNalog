@@ -61,7 +61,7 @@
 
 <br>
 
-## `/getUserInformation?username={userName}`
+## `/getUserInformation?userName={userName}`
 
 **Method** : `GET`
 
@@ -94,8 +94,9 @@
 ```json
 {
   "userName": "Ded",
-  "type": "idn",
-  "date": "new Date()"
+  "type": "Имущественная декларация",
+  "text": "Сведения об имуществе, облагаемом налогами",
+  "date": "new Date().getTime()"
 }
 ```
 
@@ -115,18 +116,86 @@
 
 <br>
 
-## `/getTaxReporting?username={userName}`
+## `/getTaxReporting?userName={userName}`
 
 **Method** : `GET`
 
 **Response** : 
 
 ```json
+[
+  {
+    "userName": "Ded",
+    "type": "Имущественная декларация",
+    "text": "Сведения об имуществе, облагаемом налогами",
+    "date": "1650894461661"
+  },
+  {
+    "userName": "Ded",
+    "type": "Политическая декларация",
+    "text": "Основы деятельности международных организаций",
+    "date": "1650894461661"
+  }
+]
+```
+
+**Code** : `200 OK`
+
+<br>
+
+---
+
+<br>
+
+## `/createPayment`
+
+**Method** : `POST`
+
+**Content**
+
+```json
 {
   "userName": "Ded",
-  "type": "idn",
-  "date": "12345"
+  "sum": 5000,
+  "date": "new Date().getTime()"
 }
+```
+
+**Response** : 
+
+```json
+{
+  "result": "Succefully create tax reporting"
+}
+```
+
+**Code** : `200 OK`
+
+<br>
+
+---
+
+<br>
+
+## `/getUserPayments?userName={userName}`
+
+**Method** : `GET`
+
+**Response** : 
+
+```json
+[
+  {
+    "userName": "Ded",
+    "sum": 5000,
+    "date": "new Date().getTime()"
+  },
+  {
+    "userName": "Ded",
+    "sum": 5000,
+    "date": "new Date().getTime()"
+  }
+]
 ```
 
 **Code** : `200 OK`

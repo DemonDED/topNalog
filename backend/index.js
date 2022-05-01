@@ -29,8 +29,20 @@ app.get('/getUserInformation', async (req, res) => {
     await postgres.getUserInformation(userName, res);
 });
 
-// if(queryObject.pathname === '/createTaxReporting') {}
+app.post('/createTaxReporting', async (req, res) => {
+    await postgres.createTaxReporting(req.body, res);
+});
 
-// if(queryObject.pathname === '/getTaxReporting') {}
+app.get('/getTaxReporting', async (req, res) => {
+    await postgres.getTaxReporting(req.query.userName, res);
+})
+
+app.post('/createPayment', async (req, res) => {
+    await postgres.createPayment(req.body, res);
+})
+
+app.get('/getUserPayments', async (req, res) => {
+    await postgres.getUserPayments(req.query.userName, res);
+})
 
 app.listen(80, () => console.log(`Server listening on port: 80`));
