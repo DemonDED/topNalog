@@ -11,6 +11,7 @@
           <button @click="goRegistration">Создать новый аккаунт</button>
         </div>
     </div>
+    <div style="color:red;">{{report}}</div>
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      report: null,
     }
   },
  methods: {
@@ -37,6 +39,9 @@ export default {
         document.cookie = `userName=${userName.value};max-age=999999;`;
         window.location.href = '/';
       }
+    })
+    .catch((error) => {
+      this.report = error.response.data.result;
     })
 
 

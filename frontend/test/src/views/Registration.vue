@@ -2,19 +2,33 @@
     <div class="reg-main">
       <div class="reg">
       <div>
-        <h1 >Регистарция</h1>
+        <h1>Регистарция</h1>
       </div>
+        <div class="blockInput">
         <input id="userName" type="text" placeholder="Имя пользователя">
-        <input id="email" type="email" placeholder="Почта">
-        <input id="address" type="text" placeholder="Адрес">
-        <input id="contact" type="text" placeholder="Номер телефона">
-        <input id="tin" type="text" placeholder="ИНН">
-        <input id="password" type="password" placeholder="Пароль">
+        </div>
+        <div class="blockInput">
+        <input id="email" type="email" placeholder="Почта"> 
+        </div>
+        <div class="blockInput">
+        <input id="address" type="text" placeholder="Адрес"> 
+        </div>
+        <div class="blockInput">
+        <input id="contact" type="text" placeholder="Номер телефона"> 
+        </div>
+        <div class="blockInput">
+        <input id="tin" type="text" placeholder="ИНН"> 
+        </div>
+        <div class="blockInput">
+        <input id="password" type="password" placeholder="Пароль"> 
+        </div>
         <button @click="registrationUser">Создать пользователя</button>
       </div>
       <div>
         <button @click="goLogin">Уже есть аккаунт?</button>
       </div>
+      <div class="error">{{report}}</div>
+      <div>{{dataTest}}</div>
     </div>
 </template>
 
@@ -23,7 +37,8 @@ import axios from 'axios';
 export default {
     data() {
         return {
-
+          report: null,
+          dataTest: null,
         }
     },
     methods: {
@@ -45,12 +60,17 @@ export default {
             tin: tin.value
           })
           .then((response) => {
-            if (response) {
+            this.dataTest = response
+            this.report = JSON.parse(response.data);
+            if (this.report.result === 'Пользователь создан') {
               document.cookie = `userName=${userName.value};max-age=9999999;`;
               window.location.href = '/';
             } else {
               alert('Ошибка сервера');
             }
+          })
+          .catch((error) => {
+            this.report = error.response.data.result;
           })
         },
         goLogin() {
@@ -62,6 +82,13 @@ export default {
 </script>
 
 <style scoped>
+
+.blockInput {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
 button {
   display: flex;
   align-items: center;
@@ -100,5 +127,8 @@ margin: 5px;
   align-items: center;
   align-content: space-around;
   flex-direction: column;
+}
+.error { 
+  color: red;
 }
 </style>

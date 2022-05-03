@@ -2,7 +2,7 @@
     <div class="main">
         <header>
             <h1><span class="blue-text">Топ</span>Nalog</h1>
-            <img src="/Vector.png"  alt="Выйти из учетной записи" id="exit" @click="exit"/>
+            <img src="../assets/Vector.png"  alt="Выйти из учетной записи" id="exit" @click="exit"/>
         </header>
         <div class="flex-center">
         <div  class='block-information-1'>
@@ -29,7 +29,7 @@
         <div class="flex-row">
         <div class='block-information'>
             <h1>Декларации</h1>
-            <div v-for="item in this.taxData" :key="item">
+            <div v-for="item in this.taxData" :key="item" class="content">
                 <div>
                   <label for="">Тип: </label> <label for="">{{item.type}}</label>
                 </div>
@@ -48,7 +48,7 @@
         </div>
         <div class='block-information'>
             <h1>Платежи</h1>
-            <div v-for="item in this.paymentData" :key="item">
+            <div v-for="item in this.paymentData" :key="item" class="content">
                 <div>
                   <label for="">Сумма: </label> <label for="">{{item.sum}}</label>
                 </div>
@@ -226,5 +226,15 @@ border-radius: 5px
         align-content: center;
         flex-direction: row;
         width: 100%;
+    }
+    .content {
+        border-bottom: 1px solid #BEB9B9;
+        border-top: 1px solid  #BEB9B9;
+        margin-bottom: 35px;
+        padding: 10px;
+        text-align: start;
+    }
+    #exit {
+        cursor: pointer;
     }
 </style>
