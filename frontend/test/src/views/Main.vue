@@ -1,5 +1,8 @@
 <template>
     <div>
+        <header>
+            <img src="/Vector.png"  alt="Выйти из учетной записи" id="exit" @click="exit"/>
+        </header>
         <div>
             <h1>Информация о пользователе</h1>
             <div>
@@ -71,6 +74,9 @@ export default {
             userData: [],
             taxData: [],
             paymentData: [],
+            publicPath: process.env.BASE_URL,
+            // taxDate: null,
+            // paymentDate: null,
         }
     },
     mounted() {
@@ -96,7 +102,8 @@ export default {
 
             })
             .then((response) => {
-                this.taxData = response.data
+                this.taxData = response.data;
+                // this.taxDate = new Date(response.data.date);
             })
         },
         getUserPayments() {
@@ -105,6 +112,7 @@ export default {
             })
             .then((response) => {
                 this.paymentData = response.data
+                // this.paymentDate = new Date(response.data.date);
             })
         },
         createTaxReporting() {
@@ -135,6 +143,14 @@ export default {
                 this.getUserPayments()
             })
         },
+        exit() {
+            document.cookie = 'userName=;max-age=-1;';
+            window.location.href = '/loginUser';
+        },
     },
 }
 </script>
+
+<style>
+
+</style>
