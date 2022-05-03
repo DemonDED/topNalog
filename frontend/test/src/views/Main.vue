@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="main">
         <header>
+            <h1><span class="blue-text">Топ</span>Nalog</h1>
             <img src="/Vector.png"  alt="Выйти из учетной записи" id="exit" @click="exit"/>
         </header>
-        <div>
+        <div class="flex-center">
+        <div  class='block-information-1'>
             <h1>Информация о пользователе</h1>
             <div>
                 <div>
@@ -23,17 +25,16 @@
                 </div>
             </div>
         </div>
-        <div>
+        </div>
+        <div class="flex-row">
+        <div class='block-information'>
             <h1>Декларации</h1>
             <div v-for="item in this.taxData" :key="item">
-                <div>
-                  <label for="">Имя: </label> <label for="">{{item.userName}}</label>
-                </div>
                 <div>
                   <label for="">Тип: </label> <label for="">{{item.type}}</label>
                 </div>
                 <div>
-                  <label for="">Содержание: </label> <label for="">{{item.text}}</label>
+                  <label for="">Информация: </label> <label for="">{{item.text}}</label>
                 </div>
                 <div>
                   <label for="">Дата: </label> <label for="">{{item.date}}</label>
@@ -41,16 +42,13 @@
             </div>
             <div>
                 <input id="typeTax" type="text" placeholder="Тип декларации">
-                <input id="infoTax" type="text" placeholder="Информация об имуществе, облагаемом налогами">
+                <input id="infoTax" type="text" placeholder="Информация">
                 <button @click="createTaxReporting">Добавить декларацию</button>
             </div>
         </div>
-        <div>
+        <div class='block-information'>
             <h1>Платежи</h1>
             <div v-for="item in this.paymentData" :key="item">
-                <div>
-                  <label for="">Имя: </label> <label for="">{{item.userName}}</label>
-                </div>
                 <div>
                   <label for="">Сумма: </label> <label for="">{{item.sum}}</label>
                 </div>
@@ -63,6 +61,7 @@
                 <button @click="createPayment">Добавить платеж</button>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -151,6 +150,81 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        background: #0072E5;
+        width: 100%;
+    }
+    header > h1 {
+        color: white;
+    }
+    .blue-text {
+        color: #81B9FB;;
+    }
+    .block-information {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+        border-radius: 5px;
+        margin: 10px;
+        width: 30%;
+        padding: 3em;
+    }
+    .block-information-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+        border-radius: 5px;
+        margin: 10px;
+        width: 66%;
+        padding: 3em;
+    }
+    button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 462px;
+height: 50px;
+        background: #0072E5;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+    input {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px 0px 0px 10px;
+        position: static;
+width: 462px;
+height: 50px;
+border: 1px solid #BEB9B9;
+box-sizing: border-box;
+border-radius: 5px
+    }
+    .flex-row, .flex-center {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: row;
+        width: 100%;
+    }
 </style>
