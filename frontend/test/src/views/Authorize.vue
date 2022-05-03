@@ -19,8 +19,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      goRegistrationCounter: false,
-      goLoginCounter: true,
     }
   },
  methods: {
@@ -32,16 +30,17 @@ export default {
       userName: userName.value,
       password: password.value,
     })
-    .then(function (response) {
-      if (response.length > 10) {
-        window.location.href = '/'
+    .then((response) => {
+      if (response) {
+        document.cookie = `userName=${userName.value};max-age=999999;`;
+        window.location.href = '/';
       }
     })
 
 
    },
    goRegistration() {
-     window.location.href = '/regisration'
+     window.location.href = '/registration'
    },
  }
 }
