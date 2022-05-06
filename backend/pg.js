@@ -164,19 +164,12 @@ async function getUserPayments(userName, response) {
     }
 }
 
-exports.getUserInformation = getUserInformation;
-exports.createUser = createUser;
-exports.login = login;
-exports.createTaxReporting = createTaxReporting;
-exports.getTaxReporting = getTaxReporting;
-exports.createPayment = createPayment;
-exports.getUserPayments = getUserPayments;
-// exports = {
-//     getUserInformation,
-//     createUser,
-//     login,
-//     createTaxReporting,
-//     getTaxReporting,
-//     createPayment,
-//     getUserPayments
-// }
+module.exports = {
+    getUserInformation,
+    createUser,
+    login,
+    createTaxReporting,
+    getTaxReporting,
+    createPayment,
+    getUserPayments
+}
